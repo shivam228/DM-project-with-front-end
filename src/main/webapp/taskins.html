@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        th, td, p, input {
+            font:14px Verdana;
+        }
+        table, th, td
+        {
+            border: solid 1px #DDD;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+        th {
+            font-weight:bold;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .instagram {
+            text-align: center;
+            border-radius: 50px;
+            padding: 26px;
+            color: white;
+            background: #3371bd;
+            transition: all 0.2s ease-out 0s;
+        }
+
+
+    </style>
+
+
+</head>
+
+<body>
+<!-- Main div code -->
+
+<input type="button" align="center" onclick="login()" value="List of Tasks" class="button"/>
+
+<p id="showData" align="center"></p>
+
+<a href="event_ins.html" class="button instagram" align="center">Select Task and assign user </a>
+</body>
+<script>
+    function login() {
+
+        var wfid = localStorage.getItem('workflowid');
+
+        var request = new XMLHttpRequest();
+        var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/task_event/"+ wfid;
+        //console.log(url);
+        request.open('GET',url,true);
+
+        request.onload = function() {
+
+            var data = JSON.parse(request.response);
+
+            var myBooks = data;
+
+            var col = [];
+            for (var i = 0; i < myBooks.length; i++) {
+                for (var key in myBooks[i]) {
+                    if (col.indexOf(key) === -1) {
+                        col.push(key);
+                    }
+                }
+            }
+
+            // CREATE DYNAMIC TABLE.
+            var table = document.createElement("table");
+
+            // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+            var tr = table.insertRow(-1);                   // TABLE ROW.
+
+            for (var i = 0; i < col.length; i++) {
+                var th = document.createElement("th");      // TABLE HEADER.
+                th.innerHTML = col[i];
+                tr.appendChild(th);
+
+            }
+
+
+            // ADD JSON DATA TO THE TABLE AS ROWS.
+            for (var i = 0; i < myBooks.length; i++) {
+
+                tr = table.insertRow(-1);
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = myBooks[i].id;
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = myBooks[i].pre_event;
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = myBooks[i].next_event;
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = myBooks[i].action;
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = myBooks[i].workflow.id;
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = myBooks[i].what;
+
+
+            }
+
+            // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+            var divContainer = document.getElementById("showData");
+            divContainer.innerHTML = "";
+            divContainer.appendChild(table);
+
+        }
+
+
+        request.send();
+
+
+    }
+
+</script>
+
+
+
+</html>

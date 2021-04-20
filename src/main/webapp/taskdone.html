@@ -122,9 +122,13 @@
                 }
             }
             request.send();
-            // window.location.replace("event.html")
+            window.location.replace("taskdone.html")
 
         }
+        function back() {
+            window.location.replace("user.html");
+        }
+
 
     </script>
 </head>
@@ -144,6 +148,9 @@
             <!-- <input type="text" id="id" oninput="getid()" placeholder="Student ID"> -->
         </div>
         <button type="button" value="Submit" class="btn" onClick="login()">Submit</button>
+        <br>
+        <br>
+        <button type="button" value="Submit" class="btn" onClick="back()">Go Back</button>
     </form>
 </div>
 </body>

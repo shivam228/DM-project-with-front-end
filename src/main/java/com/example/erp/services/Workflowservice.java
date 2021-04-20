@@ -33,10 +33,10 @@ public class Workflowservice
         return d;
 
     }
-    public Workflow getwf(int wfid)
+    public Workflow getwf(String wfname)
     {
 
-        Workflow w = new WorkflowDAOimpl().getwfo(wfid);
+        Workflow w = new WorkflowDAOimpl().getwfo(wfname);
         return w;
 
     }
@@ -56,11 +56,12 @@ public class Workflowservice
         return workflows;
 
     }
-    public void addworkflowinstnace(Workflow w)
+    public int  addworkflowinstnace(Workflow w)
     {
         WorkflowInstance w1 = new WorkflowInstance();
         w1.setWorkflow(w);
-        new WorkflowDAOimpl().addworkflowinstance(w1);
+        int id = new WorkflowDAOimpl().addworkflowinstance(w1);
+        return id;
     }
     public Event geteventid(String tname)
     {
@@ -127,5 +128,22 @@ public class Workflowservice
 
         EventInstance e= new WorkflowDAOimpl().geteventinstance(evenid,wfinsid);
         return e;
+    }
+    public Workflow getwfbyid(int wfid)
+    {
+
+        Workflow w = new WorkflowDAOimpl().getwfobyid(wfid);
+        return w;
+
+    }
+    public List<Event> gettaksofwf(int id)
+    {
+
+        List<Event> tasks ;
+
+        tasks =  new WorkflowDAOimpl().gettasksofwf(id);
+
+        return tasks;
+
     }
 }

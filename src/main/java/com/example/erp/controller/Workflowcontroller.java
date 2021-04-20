@@ -15,7 +15,7 @@ import java.util.List;
 @Path("workflow")
 public class Workflowcontroller
 {
-    @POST
+    @GET
     @Path("/add_workflow/{name}/{desname}/{nevent}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_HTML)
@@ -26,21 +26,25 @@ public class Workflowcontroller
         Workflowservice wfs = new Workflowservice();
         Designer desi = new Designer();
         desi = wfs.getdes(desiname);
+        if(desi == null)
+            result = "designer not present";
+        else
         wfs.addworkflow(wname, desi,events);
+
         System.out.println(result);
         return Response.status(200).entity(result).build();
     }
 
     @POST
-    @Path("/add_event/{name}/{desc}/{wid}/{act}/{prior}")
+    @Path("/add_event/{name}/{desc}/{wname}/{act}/{prior}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_HTML)
     public Response add_event(@PathParam("name") String wname,
-                             @PathParam("desc") String description, @PathParam("wid") int wfid,@PathParam("act") String action,@PathParam("prior") int priority) throws URISyntaxException {
+                             @PathParam("desc") String description, @PathParam("wname") String wfname,@PathParam("act") String action,@PathParam("prior") int priority) throws URISyntaxException {
         String result = "Event Added";
         Workflowservice wfs = new Workflowservice();
         Workflow wf = new Workflow();
-        wf = wfs.getwf(wfid);
+        wf = wfs.getwf(wfname);
         int n = wf.getNumber_of_events();
         int totalevents = wfs.geteventcount();
         int pre,next;
@@ -86,10 +90,11 @@ public class Workflowcontroller
         String result = "Workflow instance Added";
         Workflowservice wfs = new Workflowservice();
         Workflow wf = new Workflow();
-        wf = wfs.getwf(id);
-        wfs.addworkflowinstnace(wf);
+        wf = wfs.getwfbyid(id);
+        int idx = wfs.addworkflowinstnace(wf);
         System.out.println(result);
-        return Response.status(200).entity(result).build();
+        System.out.println("workflow instance id" + " " +idx);
+        return Response.status(200).entity(idx).build();
     }
     @POST
     @Path("/add_eventinstance/{name}/{role}/{id}")
@@ -165,6 +170,19 @@ public class Workflowcontroller
         }
 
         return Response.status(200).entity(result).build();
+    }
+    @GET
+    @Path("/task_event/{wfid}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response viewwftasks(@PathParam("wfid") int wfid
+    ) throws URISyntaxException
+    {
+        List<Event> sp  = new ArrayList<>();
+        Workflowservice bls = new Workflowservice();
+        int id;
+        sp = bls.gettaksofwf(wfid);
+        GenericEntity<List<Event>> genericEntity = new GenericEntity<List<Event>>(sp){};
+        return Response.ok(genericEntity, MediaType.APPLICATION_JSON).build();
     }
 
 

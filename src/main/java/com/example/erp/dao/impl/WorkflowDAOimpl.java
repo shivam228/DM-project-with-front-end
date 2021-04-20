@@ -45,25 +45,28 @@ public class WorkflowDAOimpl implements WorkflowDAO
     @Override
     public Designer getdesi(String name)
     {
+        Designer d = null;
         Session session = SessionUtil.getSession();
-
         session.beginTransaction();
         Query query = session.createQuery("from Designer d1 where d1.name =:users");
         query.setParameter("users",name);
-        Designer d = (Designer) query.getSingleResult();
+        int siz = ((org.hibernate.query.Query<?>) query).list().size();
+        System.out.println(siz);
+        if(siz==0)
+            System.out.println("Designer not present");
+        else {
+             d = (Designer) query.getSingleResult();
+        }
         session.getTransaction().commit();
         session.close();
-        System.out.println("designer name");
-        System.out.println(d.getName());
-
         return d;
     }
 
     @Override
-    public Workflow getwfo(int wfid) {
+    public Workflow getwfo(String wfid) {
         Session session = SessionUtil.getSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Workflow w where w.id =:wfid");
+        Query query = session.createQuery("from Workflow w where w.name =:wfid");
         query.setParameter("wfid",wfid);
         Workflow wo = (Workflow) query.getSingleResult();
         session.getTransaction().commit();
@@ -95,18 +98,23 @@ public class WorkflowDAOimpl implements WorkflowDAO
     }
 
     @Override
-    public void addworkflowinstance(WorkflowInstance w)
+    public int addworkflowinstance(WorkflowInstance w)
     {
+        int id = 0;
         try(Session session = SessionUtil.getSession())
         {
             session.beginTransaction();
             session.save(w);
             session.getTransaction().commit();
             session.close();
+            System.out.println(w.getId());   
+            id = w.getId();
+            
         }
         catch (HibernateException e){
             e.printStackTrace();
         }
+        return id;
     }
 
     @Override
@@ -243,6 +251,31 @@ public class WorkflowDAOimpl implements WorkflowDAO
         session.getTransaction().commit();
         session.close();
         return evx;
+    }
+
+    @Override
+    public Workflow getwfobyid(int id) {
+        Session session = SessionUtil.getSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Workflow w where w.id =:wfid");
+        query.setParameter("wfid",id);
+        Workflow wo = (Workflow) query.getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return wo;
+    }
+
+    @Override
+    public List<Event> gettasksofwf(int id) {
+        Session session = SessionUtil.getSession();
+
+        session.beginTransaction();
+        TypedQuery<Event> query = session.createQuery("from Event ei where ei.workflow.id =:id");
+        query.setParameter("id",id);
+        List<Event> result = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return result;
     }
 
 }

@@ -9,10 +9,10 @@ public interface WorkflowDAO
     public abstract void addworkflow(Workflow w);
     public abstract void addevent(Event e);
     public abstract Designer getdesi(String name);
-    public abstract Workflow getwfo(int wfid);
+    public abstract Workflow getwfo(String wfname);
     public abstract int geteventc();
     public abstract List<Workflow> getworkflows();
-    public abstract void addworkflowinstance(WorkflowInstance w);
+    public abstract int addworkflowinstance(WorkflowInstance w);
     public abstract Event geteventids(String tname);
     public abstract WorkflowInstance getworkflowinstance(int wfiid);
     public abstract List<User> getuserrole(String role);
@@ -23,4 +23,6 @@ public interface WorkflowDAO
     public abstract void updateeventstatus(int eiid);
     public abstract int getwfins(int einsid);
     public abstract EventInstance geteventinstance(int evenid,int wfinsid);
+    public abstract Workflow getwfobyid(int id);
+    public abstract List<Event> gettasksofwf(int id);
 }

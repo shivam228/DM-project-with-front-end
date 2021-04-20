@@ -114,10 +114,10 @@ a:hover, a:active {
             desc = document.getElementById("amt").value;
         }
         
-        function getid()
-        {
-            id = document.getElementById("dead").value;
-        }
+        // function getid()
+        // {
+        //     id = document.getElementById("dead").value;
+        // }
         function getprior()
         {
             priority = document.getElementById("prior").value;
@@ -128,8 +128,9 @@ a:hover, a:active {
         }
         
         function login() {
+            var wname = localStorage.getItem('WorkflowName');
             var request = new XMLHttpRequest();
-            var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/add_event/"+ name + "/"+desc+ "/"+id+ "/"+action+ "/"+priority;
+            var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/add_event/"+ name + "/"+desc+ "/"+wname+ "/"+action+ "/"+priority;
             console.log(url);
             request.open('POST',url,true);
             request.onload =()=>
@@ -141,6 +142,7 @@ a:hover, a:active {
 
                 }
             }
+            alert('Event added');
             request.send();
             
         }
@@ -160,7 +162,7 @@ a:hover, a:active {
             <input class="fname" type="text" id="desc" oninput="getname()" placeholder="Enter Task Name">
             <input type="text" id="amt" oninput="getdesc()" placeholder="Enter Task Description">
            <!--  <input type="text" id="date" oninput="getrole()" placeholder="User role who can do task"> -->
-            <input type="number" id="dead" oninput="getid()" placeholder="Workflow id">
+<!--            <input type="number" id="dead" oninput="getid()" placeholder="Workflow id">-->
             <input type="text" id="act" oninput="getaction()" placeholder="Action related to task">
             <input type="number" id="prior" oninput="getprior()" placeholder="Task Number">
             <!-- <input type="text" id="id" oninput="getid()" placeholder="Student ID"> -->

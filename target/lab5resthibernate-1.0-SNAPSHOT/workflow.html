@@ -94,6 +94,7 @@
         function getname()
         {
             name = document.getElementById("desc").value;
+            localStorage.setItem('WorkflowName', name);
             // console.log("desc:--"+desc);
         }
         function getdesname()
@@ -104,12 +105,12 @@
         {
             events = document.getElementById("date").value;
         }
-        
+
         function login() {
             var request = new XMLHttpRequest();
             var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/add_workflow/"+ name + "/"+designer+ "/"+events;
             console.log(url);
-            request.open('POST',url,true);
+            request.open('GET',url,true);
             request.onload =()=>
             {
                 var data = request.responseText;
@@ -117,8 +118,11 @@
                     console.log(data);
                     alert(data);
 
+
+
                 }
             }
+
             request.send();
             window.location.replace("event.html")
 

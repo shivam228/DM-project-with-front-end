@@ -94,11 +94,11 @@
         function getname()
         {
             name = document.getElementById("desc").value;
-            console.log("desc:--"+desc);
         }
         function getid()
         {
             id = document.getElementById("date").value;
+            localStorage.setItem('workflowid', id);
         }
         
         function login() {
@@ -116,7 +116,7 @@
                 }
             }
             request.send();
-            window.location.replace("event_ins.html");
+            window.location.replace("taskins.html");
 
         }
 
