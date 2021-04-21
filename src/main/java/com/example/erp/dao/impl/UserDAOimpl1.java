@@ -1,5 +1,6 @@
 package com.example.erp.dao.impl;
 
+import com.example.erp.bean.Designer;
 import com.example.erp.bean.User;
 import com.example.erp.dao.UserDAO;
 import com.example.erp.utils.SessionUtil;
@@ -7,12 +8,52 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class UserDAOimpl1 implements UserDAO
 {
+    @Override
+    public String registerDesigner(String user, String pass){
+        Designer designer = new Designer();
+        designer.setName(user);
+        designer.setPasswd(pass);
+        try{
+            Session session = SessionUtil.getSession();
+            session.beginTransaction();
+
+            session.persist(designer);
+            session.getTransaction().commit();
+            session.close();
+
+            return "Success";
+        }
+        catch (Exception e){
+            return "Failure";
+        }
+
+    }
+    @Override
+    public String registerUser(String user, String pass, String role){
+        User user1 = new User();
+        user1.setPasswd(pass);
+        user1.setName(user);
+        user1.setRole(role);
+        try
+        {
+            Session session = SessionUtil.getSession();
+            session.beginTransaction();
+
+            session.persist(user1);
+            session.getTransaction().commit();
+            session.close();
+
+            return "Success";
+        }
+        catch (Exception e){
+            return "Failure";
+        }
+
+    }
     @Override
     public String login(String user, String pass)
     {
