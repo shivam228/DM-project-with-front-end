@@ -49,14 +49,30 @@
 
 <p id="showData" align="center"></p>
 
-<a href="taskdone.html" class="button instagram" align="center">Select Task to execute</a>
+<form>
+    <input placeholder="Enter serial number " id="index"/>
+    <button type="button" value="Submit" class="btn" onClick="forward()">Submit</button>
+</form>
+
+<!--<a href="taskdone.html" class="button instagram" align="center">Select Task to execute</a> -->
 </body>
 <script>
+    var myBooks;
+
+    function forward() {
+
+        var i = document.getElementById("index").value
+        console.log(i);
+        console.log(myBooks[i-1]);
+        localStorage.setItem('event_id', myBooks[i-1].event.id);
+        localStorage.setItem('event_instance_id', myBooks[i-1].id);
+        localStorage.setItem('actions', myBooks[i-1].event.action);
+        location.replace("taskdone.html")
+    }
     function login() {
 
         var uname = localStorage.getItem('userName');
-
-            console.log(uname);
+        console.log(uname);
         var request = new XMLHttpRequest();
         var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/task_list/"+ uname;
         //console.log(url);
@@ -66,7 +82,7 @@
 
                 var data = JSON.parse(request.response);
 
-                var myBooks = data;
+                myBooks = data;
 
                 var col = [];
                 for (var i = 0; i < myBooks.length; i++) {
@@ -118,6 +134,7 @@
 
                 }
 
+
                 // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
                 var divContainer = document.getElementById("showData");
                 divContainer.innerHTML = "";
@@ -128,8 +145,8 @@
 
         request.send();
 
-
     }
+
 
 </script>
 

@@ -90,17 +90,20 @@
         }
     </style>
     <script>
-        var name,id,action;
-        function getname()
+        var name,id,action, actions_possible;
+        name = localStorage.getItem('event_id');
+        id = localStorage.getItem('event_instance_id');
+
+
+        /*function getname()
         {
             name = document.getElementById("desc").value;
             // console.log("desc:--"+desc);
         }
-       
         function getid()
         {
             id = document.getElementById("date").value;
-        }
+        }*/
         function getdesc()
         {
             action = document.getElementById("action").value;
@@ -132,7 +135,7 @@
 
     </script>
 </head>
-<body>
+<body >
 <div class="main-block">
     <div class="left-part">
         <i class="fas fa-envelope"></i>
@@ -142,16 +145,22 @@
     <form>
         <h1> Task</h1>
         <div class="info">
-            <input class="fname" type="number" id="desc" oninput="getname()" placeholder="Enter Event id">
-            <input type="number" id="date" oninput="getid()" placeholder="Enter Event Instance ID">
+            <!-- <input class="fname" type="number" id="desc" oninput="getname()" placeholder="Enter Event id">
+            <input type="number" id="date" oninput="getid()" placeholder="Enter Event Instance ID"> -->
+            <h2 id="possible"></h2>
             <input type="text" id="action" oninput="getdesc()" placeholder="Enter Action related to event">
-            <!-- <input type="text" id="id" oninput="getid()" placeholder="Student ID"> -->
+
         </div>
         <button type="button" value="Submit" class="btn" onClick="login()">Submit</button>
         <br>
         <br>
         <button type="button" value="Submit" class="btn" onClick="back()">Go Back</button>
+
     </form>
+    <script>
+        actions_possible = localStorage.getItem('actions')
+        document.getElementById("possible").innerHTML = "Actions possible are: " + actions_possible;
+    </script>
 </div>
 </body>
 </html>
