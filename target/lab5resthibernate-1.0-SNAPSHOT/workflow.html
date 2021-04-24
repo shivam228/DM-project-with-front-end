@@ -117,6 +117,7 @@
                 if (request.status >= 200 && request.status < 400) {
                     console.log(data);
                     alert(data);
+                    window.location.replace("event.html")
 
 
 
@@ -124,7 +125,7 @@
             }
 
             request.send();
-            window.location.replace("event.html")
+
 
         }
 

@@ -120,12 +120,13 @@
                 var data = request.responseText;
                 if (request.status >= 200 && request.status < 400) {
                     console.log(data);
-                    //alert(data);
+                    alert(data);
+                    window.location.replace("task.html")
 
                 }
             }
             request.send();
-            window.location.replace("taskdone.html")
+            // window.location.replace("task.html")
 
         }
         function back() {

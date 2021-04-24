@@ -106,9 +106,9 @@
             var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/add_workflowinstance/"+ name + "/"+id;
             console.log(url);
             request.open('POST',url,true);
-            request.onload =()=>
+            request.onreadystatechange = function()
             {
-                var data = request.responseText;
+                var data = request.response;
                 if (request.status >= 200 && request.status < 400) {
                     console.log(data);
                     alert(data);

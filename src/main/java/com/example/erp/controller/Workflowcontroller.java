@@ -27,7 +27,7 @@ public class Workflowcontroller
         Designer desi = new Designer();
         desi = wfs.getdes(desiname);
         if(desi == null)
-            result = "designer not present";
+            result = "Designer not Exist";
         else
         wfs.addworkflow(wname, desi,events);
 
@@ -92,9 +92,11 @@ public class Workflowcontroller
         Workflow wf = new Workflow();
         wf = wfs.getwfbyid(id);
         int idx = wfs.addworkflowinstnace(wf);
+
         System.out.println(result);
         System.out.println("workflow instance id" + " " +idx);
-        return Response.status(200).entity(idx).build();
+        String s=String.valueOf(idx);
+        return Response.status(200).entity(s).build();
     }
     @POST
     @Path("/add_eventinstance/{name}/{role}/{id}")
@@ -150,6 +152,7 @@ public class Workflowcontroller
         if (preeveid == -1) {
             System.out.println("Execute the task And Mark status as completed");
             System.out.println("task Executing----" + e.getWhat());
+            result = "Task Executing"+ " "+e.getWhat();
             wfs.updatestatus(eventinsid);
         }
         else
@@ -160,10 +163,12 @@ public class Workflowcontroller
             if (evx.getstatus().equals("pending"))
             {
                 System.out.println("Task cannot be completed because previous task is not completed");
+                result = "Task Cannot be executed because previous task is not completed";
             }
             else
                 {
                 System.out.println("Task Executing---- " + e.getWhat());
+                    result = "Task Executing"+ " "+e.getWhat();
                 wfs.updatestatus(eventinsid);
 
             }

@@ -49,9 +49,26 @@
 
 <p id="showData" align="center"></p>
 
-<a href="event_ins.html" class="button instagram" align="center">Select Task and assign user </a>
+<form>
+    <input placeholder="Enter serial number " id="index"/>
+    <button type="button" value="Submit" class="btn" onClick="forward()">Submit</button>
+</form>
+
+<!--<a href="event_ins.html" class="button instagram" align="center">Select Task and assign user </a>-->
 </body>
 <script>
+
+    var myBooks;
+
+    function forward() {
+
+        var i = document.getElementById("index").value
+        console.log(i);
+        console.log(myBooks[i-1]);
+        localStorage.setItem('Taskname', myBooks[i-1].what);
+
+        location.replace("event_ins.html")
+    }
     function login() {
 
         var wfid = localStorage.getItem('workflowid');
@@ -65,7 +82,7 @@
 
             var data = JSON.parse(request.response);
 
-            var myBooks = data;
+            myBooks = data;
 
             var col = [];
             for (var i = 0; i < myBooks.length; i++) {
@@ -81,7 +98,10 @@
 
             // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
-            var tr = table.insertRow(-1);                   // TABLE ROW.
+            var tr = table.insertRow(-1);
+            var th = document.createElement("th");
+            th.innerHTML = "S.NO";
+            tr.appendChild(th);// TABLE ROW.
 
             for (var i = 0; i < col.length; i++) {
                 var th = document.createElement("th");      // TABLE HEADER.
@@ -95,6 +115,8 @@
             for (var i = 0; i < myBooks.length; i++) {
 
                 tr = table.insertRow(-1);
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = i+1;
                 var tabCell = tr.insertCell(-1);
                 tabCell.innerHTML = myBooks[i].id;
                 var tabCell = tr.insertCell(-1);

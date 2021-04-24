@@ -98,7 +98,10 @@
 
                 // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
-                var tr = table.insertRow(-1);                   // TABLE ROW.
+                var tr = table.insertRow(-1);
+                var th = document.createElement("th");
+                th.innerHTML = "S.NO";
+                tr.appendChild(th);// TABLE ROW.
 
                 for (var i = 0; i < col.length; i++) {
                     var th = document.createElement("th");      // TABLE HEADER.
@@ -106,6 +109,7 @@
                     tr.appendChild(th);
 
                 }
+
                 var th = document.createElement("th");
                 th.innerHTML = "Event Name";
                 tr.appendChild(th);
@@ -117,6 +121,8 @@
                 for (var i = 0; i < myBooks.length; i++) {
 
                     tr = table.insertRow(-1);
+                    var tabCell = tr.insertCell(-1);
+                    tabCell.innerHTML = i+1;
                     var tabCell = tr.insertCell(-1);
                     tabCell.innerHTML = myBooks[i].id;
                     var tabCell = tr.insertCell(-1);

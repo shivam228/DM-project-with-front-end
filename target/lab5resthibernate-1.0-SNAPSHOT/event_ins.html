@@ -103,20 +103,22 @@ a:hover, a:active {
         }
     </style>
     <script>
-        var desc,role,id;
-        function getname()
-        {
-            name = document.getElementById("desc").value;
-            // console.log("desc:--"+desc);
-        }
+         var name,role,id;
+         name = localStorage.getItem('Taskname');
+         id =  localStorage.getItem('workflowinatanceid');
+        // function getname()
+        // {
+        //     name = document.getElementById("desc").value;
+        //     // console.log("desc:--"+desc);
+        // }
         function getrole()
         {
             role = document.getElementById("date").value;
         }
-        function getid()
-        {
-            id = document.getElementById("dead").value;
-        }
+        // function getid()
+        // {
+        //     id = document.getElementById("dead").value;
+        // }
         
         function login() {
             var request = new XMLHttpRequest();
@@ -129,6 +131,7 @@ a:hover, a:active {
                 if (request.status >= 200 && request.status < 400) {
                     console.log(data);
                     alert(data);
+                    window.location.replace("taskins.html");
 
                 }
             }
@@ -149,13 +152,15 @@ a:hover, a:active {
     <form>
         <h1> Assign Users</h1>
         <div class="info">
-            <input class="fname" type="text" id="desc" oninput="getname()" placeholder="Task Name">
+<!--            <input class="fname" type="text" id="desc" oninput="getname()" placeholder="Task Name">-->
             <input type="text" id="date" oninput="getrole()" placeholder=" Assign User role who can do task">
-            <input type="number" id="dead" oninput="getid()" placeholder="Workflow Instance id">
+<!--            <input type="number" id="dead" oninput="getid()" placeholder="Workflow Instance id">-->
             <!-- <input type="text" id="id" oninput="getid()" placeholder="Student ID"> -->
         </div>
-        <button type="submit" value="Submit" class="btn" onClick="login()">Assign user to another Event</button>
+        <button type="submit" value="Submit" class="btn" onClick="login()">ADD Event</button>
         <br><br>
+        <a href="taskins.html" class="button instagram"><span class="gradient"></span>Add Another Event</a>
+        <br> <br>
         <a href="workflowinscreated.html" class="button instagram"><span class="gradient"></span>Submit</a>
         
     </form>

@@ -48,9 +48,49 @@
 
 <p id="showData" align="center"></p>
 
-<a href="workflow_ins.html" class="button instagram" align="center">Select Workflow</a>
+<form>
+    <input placeholder="Enter serial number " id="index"/>
+    <button type="button" value="Submit" class="btn" onClick="forward()">Submit</button>
+</form>
+
+<!--<a href="workflow_ins.html" class="button instagram" align="center">Select Workflow</a>-->
 </body>
 <script>
+    var myBooks,data;
+    function forward() {
+
+        var i = document.getElementById("index").value
+        console.log(i);
+        console.log(myBooks[i-1]);
+        localStorage.setItem('workflowid', myBooks[i-1].id);
+        var WFname = myBooks[i-1].name;
+        var WFid = myBooks[i-1].id;
+        console.log(WFname);
+        console.log(WFid);
+        var WFevents = myBooks[i-1].number_of_events;
+
+        var request = new XMLHttpRequest();
+        var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/add_workflowinstance/"+ WFname + "/"+WFid;
+        console.log(url);
+        request.open('POST',url,true);
+        request.onload = function()
+        {
+             data = request.responseText;
+            data = parseInt(data);
+            localStorage.setItem('workflowinatanceid', data);
+            if (request.status >= 200 && request.status < 400)
+            {
+                console.log(data);
+                alert("workflow Instance Added");
+                window.location.replace("taskins.html");
+
+            }
+        }
+        request.send();
+        // window.location.replace("taskins.html");
+
+    }
+
     function login() {
 
         var request = new XMLHttpRequest();
@@ -62,7 +102,7 @@
 
             var data = JSON.parse(request.response);
 
-            var myBooks = data;
+            myBooks = data;
 
             var col = [];
             for (var i = 0; i < myBooks.length; i++) {
@@ -79,6 +119,9 @@
             // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
             var tr = table.insertRow(-1);                   // TABLE ROW.
+            var th = document.createElement("th");
+            th.innerHTML = "S.NO";
+            tr.appendChild(th);// TABLE ROW.
 
             for (var i = 0; i < col.length-2; i++) {
                 var th = document.createElement("th");      // TABLE HEADER.
@@ -94,6 +137,8 @@
             for (var i = 0; i < myBooks.length; i++) {
 
                 tr = table.insertRow(-1);
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = i+1;
                 var tabCell = tr.insertCell(-1);
                 tabCell.innerHTML = myBooks[i].id;
                 var tabCell = tr.insertCell(-1);
