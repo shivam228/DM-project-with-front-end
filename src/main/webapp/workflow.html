@@ -106,7 +106,7 @@
             events = document.getElementById("date").value;
         }
 
-        function login() {
+        function getData() {
             var request = new XMLHttpRequest();
             var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/add_workflow/"+ name + "/"+designer+ "/"+events;
             console.log(url);
@@ -118,8 +118,6 @@
                     console.log(data);
                     alert(data);
                     window.location.replace("event.html")
-
-
 
                 }
             }
@@ -146,7 +144,7 @@
             <input type="number" id="date" oninput="getnumevents()" placeholder="Number of Events">
             <!-- <input type="text" id="id" oninput="getid()" placeholder="Student ID"> -->
         </div>
-        <button type="button" value="Submit" class="btn" onClick="login()">Submit</button>
+        <button type="button" value="Submit" class="btn" onClick="getData()">Submit</button>
     </form>
 </div>
 </body>

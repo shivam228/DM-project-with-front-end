@@ -42,14 +42,15 @@
 
 </head>
 
-<body>
+<body onload="getData()">
 <!-- Main div code -->
 
-<input type="button" align="center" onclick="login()" value="List of Tasks" class="button"/>
+<!-- <input type="button" align="center" onclick="login()" value="List of Tasks" class="button"/> -->
+<h2 align="center">List of Tasks</h2>
 
 <p id="showData" align="center"></p>
 
-<form>
+<form align="center">
     <input placeholder="Enter serial number " id="index"/>
     <button type="button" value="Submit" class="btn" onClick="forward()">Submit</button>
 </form>
@@ -69,7 +70,7 @@
         localStorage.setItem('actions', myBooks[i-1].event.action);
         location.replace("taskdone.html")
     }
-    function login() {
+    function getData() {
 
         var uname = localStorage.getItem('userName');
         console.log(uname);
