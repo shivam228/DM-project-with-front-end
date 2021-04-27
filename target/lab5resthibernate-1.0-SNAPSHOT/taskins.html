@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <style>
+
         th, td, p, input {
             font:14px Verdana;
         }
@@ -15,8 +17,12 @@
         th {
             font-weight:bold;
         }
+        input[type=number] {
+            border: 2px solid red;
+            border-radius: 4px;
+        }
         .button {
-            background-color: #4CAF50;
+            background-color: #008CBA;
             border: none;
             color: white;
             padding: 15px 32px;
@@ -27,14 +33,7 @@
             margin: 4px 2px;
             cursor: pointer;
         }
-        .instagram {
-            text-align: center;
-            border-radius: 50px;
-            padding: 26px;
-            color: white;
-            background: #3371bd;
-            transition: all 0.2s ease-out 0s;
-        }
+
 
 
     </style>
@@ -42,7 +41,7 @@
 
 </head>
 
-<body onload="login()">
+<body onload="getData()">
 <!-- Main div code -->
 
 <!-- <input type="button" align="center" onclick="login()" value="List of Tasks" class="button"/> -->
@@ -50,9 +49,9 @@
 
 <p id="showData" align="center"></p>
 
-<form>
-    <input placeholder="Enter serial number " id="index"/>
-    <button type="button" value="Submit" class="btn" onClick="forward()">Submit</button>
+<form align="center">
+    <input placeholder="Enter serial number " id="index" type="number"/>
+    <button type="button" value="Submit" class="button" onClick="forward()">Submit</button>
 </form>
 
 <!--<a href="event_ins.html" class="button instagram" align="center">Select Task and assign user </a>-->
@@ -70,7 +69,7 @@
 
         location.replace("event_ins.html")
     }
-    function login() {
+    function getData() {
 
         var wfid = localStorage.getItem('workflowid');
 

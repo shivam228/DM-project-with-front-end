@@ -5,9 +5,15 @@ import com.example.erp.dao.WorkflowDAO;
 import com.example.erp.dao.impl.WorkflowDAOimpl;
 
 import java.util.List;
+import java.util.Set;
 
 public class Workflowservice
 {
+    public String getRoles(){
+        String out;
+        out = new WorkflowDAOimpl().getRoles();
+        return out;
+    }
     public void addworkflow(String name, Designer des,int nevent)
     {
         Workflow w1 = new Workflow();

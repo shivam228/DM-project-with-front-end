@@ -106,28 +106,36 @@ a:hover, a:active {
          var name,role,id;
          name = localStorage.getItem('Taskname');
          id =  localStorage.getItem('workflowinatanceid');
-        // function getname()
-        // {
-        //     name = document.getElementById("desc").value;
-        //     // console.log("desc:--"+desc);
-        // }
+
         function getrole()
         {
-            role = document.getElementById("date").value;
+            role = document.getElementById("role").value;
         }
-        // function getid()
-        // {
-        //     id = document.getElementById("dead").value;
-        // }
-        
-        function login() {
+
+        function getRoles(){
             var request = new XMLHttpRequest();
-            var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/add_eventinstance/"+ name +"/"+role+ "/"+id;
+            var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/get_roles/";
             console.log(url);
             request.open('POST',url,true);
             request.onload =()=>
             {
                 var data = request.responseText;
+                if (request.status >= 200 && request.status < 400) {
+                    document.getElementById("roles").innerHTML = "Available roles are: " + data;
+                }
+            }
+            request.send();
+
+        }
+        function addEvent() {
+            var request = new XMLHttpRequest();
+            var url = "http://localhost:8081/lab5resthibernate_war/api/workflow/add_eventinstance/"+ name +"/"+role+ "/"+id;
+            console.log("Samarth" + url);
+            request.open('POST',url,true);
+            request.onload =()=>
+            {
+                var data = request.responseText;
+                console.log("From event_ins.html");
                 if (request.status >= 200 && request.status < 400) {
                     console.log(data);
                     alert(data);
@@ -142,7 +150,7 @@ a:hover, a:active {
 
     </script>
 </head>
-<body>
+<body onload="getRoles()">
 <div class="main-block">
     <div class="left-part">
         <i class="fas fa-envelope"></i>
@@ -151,13 +159,13 @@ a:hover, a:active {
     </div>
     <form>
         <h1> Assign Users</h1>
+        <h3 id="roles"></h3>
         <div class="info">
-<!--            <input class="fname" type="text" id="desc" oninput="getname()" placeholder="Task Name">-->
-            <input type="text" id="date" oninput="getrole()" placeholder=" Assign User role who can do task">
-<!--            <input type="number" id="dead" oninput="getid()" placeholder="Workflow Instance id">-->
-            <!-- <input type="text" id="id" oninput="getid()" placeholder="Student ID"> -->
+
+            <input type="text" id="role" oninput="getrole()" placeholder=" Assign User role who can do task">
+
         </div>
-        <button type="submit" value="Submit" class="btn" onClick="login()">ADD Event</button>
+        <button type="submit" value="Submit" class="btn" onClick="addEvent()">ADD Event</button>
         <br><br>
         <a href="taskins.html" class="button instagram"><span class="gradient"></span>Add Another Event</a>
         <br> <br>

@@ -3,10 +3,12 @@ package com.example.erp.dao;
 import com.example.erp.bean.*;
 
 import java.util.List;
+import java.util.Set;
 
 public interface WorkflowDAO
 {
     public abstract void addworkflow(Workflow w);
+    public abstract String getRoles();
     public abstract void addevent(Event e);
     public abstract Designer getdesi(String name);
     public abstract Workflow getwfo(String wfname);

@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Path("workflow")
 public class Workflowcontroller
@@ -98,6 +99,8 @@ public class Workflowcontroller
         String s=String.valueOf(idx);
         return Response.status(200).entity(s).build();
     }
+
+
     @POST
     @Path("/add_eventinstance/{name}/{role}/{id}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -111,15 +114,37 @@ public class Workflowcontroller
         wi = wfs.getworkflowins(wfiid);
         EventInstance e1 = new EventInstance();
         List<User> u  = new ArrayList<>();
+
+        // Assign task to random user.
+        int max = u.size();
+        int min = 0;
+        int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
         u = wfs.getuserrole(role);
         e1.setstatus("pending");
         e1.setWorkflowInstance(wi);
         e1.setEvent(e);
-        e1.setUser(u.get(0));
+        e1.setUser(u.get(random_int));
         wfs.addeventinstance(e1);
+        System.out.println(result);
+        System.out.println("-----------RANDOM_ID----------  "+random_int);
+        result+= " " + u.get(random_int).getName();
         System.out.println(result);
         return Response.status(200).entity(result).build();
     }
+
+    @POST
+    @Path("/get_roles/")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.TEXT_HTML)
+    public Response get_roles() throws URISyntaxException {
+
+        Workflowservice wfs = new Workflowservice();
+        String roles = wfs.getRoles();
+        System.out.println(roles);
+        return Response.status(200).entity(roles).build();
+    }
+
+
     @GET
     @Path("/task_list/{uname}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -134,6 +159,8 @@ public class Workflowcontroller
         GenericEntity<List<EventInstance>> genericEntity = new GenericEntity<List<EventInstance>>(sp){};
         return Response.ok(genericEntity, MediaType.APPLICATION_JSON).build();
     }
+
+
     @POST
     @Path("/user_task/{eid}/{einsid}/{action}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -176,6 +203,8 @@ public class Workflowcontroller
 
         return Response.status(200).entity(result).build();
     }
+
+
     @GET
     @Path("/task_event/{wfid}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

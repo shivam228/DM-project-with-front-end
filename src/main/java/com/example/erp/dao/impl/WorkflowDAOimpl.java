@@ -8,7 +8,9 @@ import org.hibernate.Session;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class WorkflowDAOimpl implements WorkflowDAO
 {
@@ -169,7 +171,26 @@ public class WorkflowDAOimpl implements WorkflowDAO
             e.printStackTrace();
         }
     }
+    @Override
+    public String getRoles(){
 
+        Session session = SessionUtil.getSession();
+        session.beginTransaction();
+        Query query = session.createQuery("select u.role from User u");
+        List<String> temp = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        Set<String> out = new HashSet<>();
+        for(String s:temp){
+            out.add(s);
+        }
+        String result="";
+        for(String s:out){
+            result+= s + ", ";
+        }
+
+        return  result.substring(0, result.length() - 2);
+    }
     @Override
     public List<EventInstance> gettasks(int id)
     {
