@@ -22,14 +22,9 @@ public class Main {
 
         //Create designer.
         Designer designer1 = new Designer();
-        designer1.setName("Samarth");
+        designer1.setName("vaibhavi");
         designer1.setPasswd("abcd");
-        Designer designer2 = new Designer();
-        designer2.setName("shivam");
-        designer2.setPasswd("abcd");
-        Designer designer3 = new Designer();
-        designer3.setName("abhinav");
-        designer3.setPasswd("abcd");
+
 
         //Create users.
         User user1 = new User();
@@ -45,46 +40,17 @@ public class Main {
         User user3 = new User();
         user3.setPasswd("abcd");
         user3.setName("user3");
-        user3.setRole("manager");
+        user3.setRole("developer");
 
         User user4 = new User();
         user4.setPasswd("abcd");
         user4.setName("user4");
-        user4.setRole("developer");
+        user4.setRole("tester");
 
         User user5 = new User();
         user5.setPasswd("abcd");
         user5.setName("user5");
-        user5.setRole("admin");
-
-        User user6 = new User();
-        user6.setPasswd("abcd");
-        user6.setName("user6");
-        user6.setRole("developer");
-
-        User user7 = new User();
-        user7.setPasswd("abcd");
-        user7.setName("user7");
-        user7.setRole("tester");
-
-        User user8 = new User();
-        user8.setPasswd("abcd");
-        user8.setName("user8");
-        user8.setRole("ops");
-
-        User user9 = new User();
-        user9.setPasswd("abcd");
-        user9.setName("user9");
-        user9.setRole("ops");
-
-        User user10 = new User();
-        user10.setPasswd("abcd");
-        user10.setName("user10");
-        user10.setRole("tester");
-
-
-
-
+        user5.setRole("ops");
 
 
 
@@ -148,8 +114,7 @@ public class Main {
         session.persist(workflow1);
 
         session.persist(designer1);
-        session.persist(designer2);
-        session.persist(designer3);
+
         session.persist(e1);
         session.persist(e2);
         session.persist(user1);
@@ -157,11 +122,7 @@ public class Main {
         session.persist(user3);
         session.persist(user4);
         session.persist(user5);
-        session.persist(user6);
-        session.persist(user7);
-        session.persist(user8);
-        session.persist(user9);
-        session.persist(user10);
+
 
         session.persist(workflowInstance1);
         //session.persist(workflowInstance2);

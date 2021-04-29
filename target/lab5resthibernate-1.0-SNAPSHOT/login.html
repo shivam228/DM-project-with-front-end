@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style type="text/css">
+     <style type="text/css">
+        a{
+            padding-left: 10px;
 
+        }
         body
         {
-            margin:0px; background-color:#27a465; color:#f7f7f7; font-family:Arial, Helvetica, sans-serif;
+            margin:0px; background-color:#1c87c9; color:white; font-family:Arial, Helvetica, sans-serif;
         }
         #main
         {
-            width:600px; height:260px; margin-left:auto; margin-right:auto; border-radius:5px; padding-left:10px; margin-top:100px;
-            border-top:3px double #f1f1f1; border-bottom:3px double #f1f1f1; padding-top:20px;
+            width:470px; height:600px; margin-left:auto; margin-right:auto; border-radius:5px; padding-left:10px; margin-top:100px;
+            border-top:3px double #f1f1f1; border-bottom:3px double #f1f1f1; padding-top:20px; background-color: #e6e6e6; color: #1c87c9;
         }
         #main table
         {
-            font-family:"Comic Sans MS", cursive;
+            font-family:"Comic Sans MS", cursive; font-weight: bold; font-size: large;
         }
         /* css code for textbox */
         #main .tb
         {
-            height:28px; width:230px; border:1px solid #27a465; color:#27a465; font-weight:bold; border-left:5px solid #f7f7f7; opacity:0.9;
+            height:28px; width:260px; border:1px solid black; color:black; font-weight:bold; border-radius:5px;  opacity:0.9;
         }
 
         /* css code for button*/
         #main .btn
         {
-            width:80px; height:32px; outline:none;  font-weight:bold; border:0px solid #27a465; text-shadow: 0px 0.5px 0.5px #fff;
-            border-radius: 2px; font-weight: 600; color: #27a465; letter-spacing: 1px; font-size:14px; -webkit-transition: 1s; -moz-transition: 1s; transition: 1s;
+            width:100px; height:34px; outline:none;  font-weight:bold; border:1px solid; text-shadow: 0px 0.5px 0.5px ;display: block; margin: 0 auto;
+            border-radius: 5px; font-weight: 600;background-color: #1c87c9; color: white; letter-spacing: 1px; font-size:14px; -webkit-transition: 1s; -moz-transition: 1s; transition: 1s;
         }
 
         #main .btn:hover
         {
-            background-color:#27a465; outline:none;  border-radius: 2px; color:#f1f1f1; border:1px solid #f1f1f1;
+            background-color:#2371a0; outline:none;  border-radius: 5px; color:#f1f1f1; border:1px solid #f1f1f1;
         }
 
     </style>
@@ -41,11 +44,11 @@
             var pwd = document.getElementById("password").value;
 
             if (uname == '') {
-                alert("please enter user name.");
+                alert("please enter user name");
             } else if (pwd == '') {
                 alert("enter the password");
             } else if (pwd.length < 3) {
-                alert("Password min and max length is 6.");
+                alert("Password size should be greater than 4");
             } else {
                 var request = new XMLHttpRequest();
                 var url = "http://localhost:8081/lab5resthibernate_war/api/form/login/"+ uname + "/"+pwd;
@@ -115,34 +118,36 @@
 
 <body>
 <!-- Main div code -->
+<div class="h-tag" style="margin: 0 100px;height: 10px; padding-top: 80px; padding-bottom: 20px " align="center">
+    <h1 align="center" style="font-size: 45px">Welcome To Workflow System</h1>
+</div>
 <div id="main">
-    <div class="h-tag">
-        <h2>Welcome To Workflow System</h2>
-    </div>
+    <img src="assets/images/workflow-1.png" alt="image" height="125" width="150" style="display: block; margin: 0 auto;">
+    <h1 align="center" style="color: black">Login</h1>
     <!-- Login box -->
     <div class="login">
-        <table cellspacing="2" align="center" cellpadding="8" border="0">
+        <table cellspacing="3" align="center" cellpadding="5" border="0">
             <tr>
-                <td>Enter User Name :</td>
+                <td>UserName</td>
+            </tr>
+            <tr>
                 <td><input type="text" placeholder="Enter user name here" id="username" class="tb" /></td>
             </tr>
             <tr>
-                <td>Enter Password :</td>
-                <td><input type="password" placeholder="Enter Password here" id="password" class="tb" /></td>
+                <td>Password</td>
             </tr>
             <tr>
-                <td></td>
-                <td>
-                    <input type="submit" value="Designer" class="btn" onClick="login()" /></td>
-                <td>
-                    <input type="submit" value="User" class="btn" onClick="login1()" /></td>
+                <td><input type="password" placeholder="Enter Password here" id="password" class="tb" /></td>
             </tr>
 
 
-        </table>
-        <a href="registration.html">New user? Click here</a>
-        &nbsp
-        <a href="registerDesigner.html">New designer? Click here</a>
+
+        </table><p></p>
+        <input type="submit" value="Designer" class="btn" onClick="login()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="User" class="btn" onClick="login1()" /><p></p><br><br><br>
+        <a href="registerDesigner.html" style="color: #1c87c9">New designer? Click here</a>
+        <p></p>
+        <a href="registration.html" style="color: #1c87c9">New user? Click here</a>
 
     </div>
     <!-- login box div ending here.. -->
